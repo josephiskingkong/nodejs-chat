@@ -5,6 +5,8 @@ const io = require('socket.io')(server);
 
 app.use(express.static('public'));
 
+let userId;
+
 class Message {
     constructor(userId, text) {
         this.userId = userId;
@@ -14,7 +16,6 @@ class Message {
 
 class Filter {
     static badWords = ['капец', 'блин', 'дурак'];
-
     static apply(message) {
         let filteredText = message.text;
         Filter.badWords.forEach(word => {
@@ -37,17 +38,19 @@ const handler = {
 };
 
 io.on('connection', socket => {
-    const userId = "user" + Math.floor(Math.random() * 10000);
-    socket.emit('user.id', userId);
-    console.log(`${userId} connected`);
+    socket.on('user.connected', (userId) => {
+        socket.userId = userId;
+        console.log(userId + ' connected');
+    });
 
     const chat = new Proxy({}, handler);
-    socket.on('chat.message', text => {
-        const message = new Message(userId, text);
-        chat.message = message;
+    socket.on('chat.message', message => {
+        const messageInstance = new Message(socket.userId, message);
+        chat.message = messageInstance;
         io.emit('chat.message', chat.message);
     });
 });
+
 
 
 server.listen(3005, () => {
