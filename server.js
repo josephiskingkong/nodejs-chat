@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const badWords = ['неприемлемое слово1', 'неприемлемое слово2', 'неприемлемое слово3']; // Ваш список недопустимых слов
 
 app.use(express.static('public'));
 
@@ -14,7 +13,7 @@ class Message {
 }
 
 class Filter {
-    static badWords = ['блять', 'блин', 'капец'];
+    static badWords = ['капец', 'блин', 'дурак'];
 
     static apply(message) {
         let filteredText = message.text;
