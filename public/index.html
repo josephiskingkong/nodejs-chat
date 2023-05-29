@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat App</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <section>
+        <div id="modal-background">
+            <div id="modal">
+                <h1>Введите своё имя</h1>
+                <span class="error hidden" id="error">Введите имя пользователя</span>
+                <input id="user-id" type="text" placeholder="Имя пользователя">
+                <button id="confirm-user-id">Войти</button>
+            </div>
+        </div>
+        <div class="chat-section">
+            <div class="chat-menu">
+                <div id="messages"></div>
+                <div class="chat-input">
+                    <input id="input" type="text" placeholder="Введите сообщение">
+                    <button id="send">
+                        <img src="send.png" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
